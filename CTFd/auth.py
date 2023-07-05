@@ -100,7 +100,7 @@ def reset_password(data=None):
             "reset_password.html",
             errors=[
                 markup(
-                    "This CTF is not configured to send email.<br> Please contact an organizer to have your password reset."
+                    "현재 이메일을 보낼 수 없습니다.<br> 비밀번호를 재설정하려면 관리자에게 문의하십시오."
                 )
             ],
         )
@@ -126,7 +126,7 @@ def reset_password(data=None):
                 return render_template(
                     "reset_password.html",
                     infos=[
-                        "Your account was registered via an authentication provider and does not have an associated password. Please login via your authentication provider."
+                        "계정은 인증 제공자를 통해 등록되었으며 연결된 비밀번호가 없습니다. 인증 제공자를 통해 로그인하십시오."
                     ],
                 )
 
@@ -158,7 +158,7 @@ def reset_password(data=None):
             return render_template(
                 "reset_password.html",
                 infos=[
-                    "If that account exists you will receive an email, please check your inbox"
+                    "해당 계정이 존재하면 이메일을 받게됩니다. 받은 편지함을 확인하십시오."
                 ],
             )
 
@@ -166,7 +166,8 @@ def reset_password(data=None):
             return render_template(
                 "reset_password.html",
                 infos=[
-                    "The email address associated with this account was registered via an authentication provider and does not have an associated password. Please login via your authentication provider."
+                        "계정은 인증 제공자를 통해 등록되었으며 연결된 비밀번호가 없습니다. 인증 제공자를 통해 로그인하십시오."
+
                 ],
             )
 
@@ -175,7 +176,7 @@ def reset_password(data=None):
         return render_template(
             "reset_password.html",
             infos=[
-                "If that account exists you will receive an email, please check your inbox"
+                "해당 계정이 존재하면 이메일을 받게됩니다. 받은 편지함을 확인하십시오."
             ],
         )
     return render_template("reset_password.html")
@@ -194,7 +195,7 @@ def register():
     if num_users_limit and num_users >= num_users_limit:
         abort(
             403,
-            description=f"Reached the maximum number of users ({num_users_limit}).",
+            description=f"최대 사용자 수 ({num_users_limit})에 도달했습니다.",
         )
 
     if request.method == "POST":
@@ -226,7 +227,7 @@ def register():
                 registration_code.lower()
                 != str(get_config("registration_code", default="")).lower()
             ):
-                errors.append("The registration code you entered was incorrect")
+                errors.append("일치하지 않는 등록 코드입니다.")
 
         # Process additional user fields
         fields = {}
@@ -237,7 +238,7 @@ def register():
         for field_id, field in fields.items():
             value = request.form.get(f"fields[{field_id}]", "").strip()
             if field.required is True and (value is None or value == ""):
-                errors.append("Please provide all required fields")
+                errors.append("모든 필드를 입력해야합니다.")
                 break
 
             # Handle special casing of existing profile fields
@@ -273,27 +274,27 @@ def register():
             valid_affiliation = True
 
         if not valid_email:
-            errors.append("Please enter a valid email address")
+            errors.append("올바른 이메일 주소를 입력하십시오.")
         if email.check_email_is_whitelisted(email_address) is False:
-            errors.append("Your email address is not from an allowed domain")
+            errors.append("가입이 허용되지 않은 이메일입니다.")
         if names:
-            errors.append("That user name is already taken")
+            errors.append("닉네임이 이미 사용중입니다.")
         if team_name_email_check is True:
-            errors.append("Your user name cannot be an email address")
+            errors.append("이메일 주소는 닉네임으로 사용할 수 없습니다.")
         if emails:
-            errors.append("That email has already been used")
+            errors.append("이미 등록된 이메일입니다.")
         if pass_short:
-            errors.append("Pick a longer password")
+            errors.append("더 긴 비밀번호를 선택하십시오.")
         if pass_long:
-            errors.append("Pick a shorter password")
+            errors.append("더 짧은 비밀번호를 선택하십시오.")
         if name_len:
-            errors.append("Pick a longer user name")
+            errors.append("더 긴 닉네임을 선택하십시오.")
         if valid_website is False:
-            errors.append("Websites must be a proper URL starting with http or https")
+            errors.append("올바른 웹사이트 주소를 입력하십시오.")
         if valid_country is False:
-            errors.append("Invalid country")
+            errors.append("올바르지 않은 국가 코드입니다.")
         if valid_affiliation is False:
-            errors.append("Please provide a shorter affiliation")
+            errors.append("소속 명이 너무 깁니다.")
 
         if len(errors) > 0:
             return render_template(
@@ -337,7 +338,7 @@ def register():
                 ):  # Confirming users is enabled and we can send email.
                     log(
                         "registrations",
-                        format="[{date}] {ip} - {name} registered (UNCONFIRMED) with {email}",
+                        format="[{date}] {ip} - {name} 생성됨 (UNCONFIRMED) with {email}",
                         name=user.name,
                         email=user.email,
                     )

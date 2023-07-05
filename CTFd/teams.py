@@ -65,21 +65,21 @@ def invite():
 
     user = get_current_user_attrs()
     if user.team_id:
-        errors.append("You are already in a team. You cannot join another.")
+        errors.append("이미 팀에 속해있습니다")
 
     try:
         team = Teams.load_invite_code(code)
     except TeamTokenExpiredException:
-        abort(403, description="This invite URL has expired")
+        abort(403, description="URL이 만료되었습니다.")
     except TeamTokenInvalidException:
-        abort(403, description="This invite URL is invalid")
+        abort(403, description="URL이 잘못되었습니다.")
 
     team_size_limit = get_config("team_size", default=0)
 
     if request.method == "GET":
         if team_size_limit:
             infos.append(
-                "Teams are limited to {limit} member{plural}".format(
+                "팀 멤버는 {limit}가 최대입니다. ({plural})".format(
                     limit=team_size_limit, plural=pluralize(number=team_size_limit)
                 )
             )
@@ -99,7 +99,7 @@ def invite():
 
         if team_size_limit and len(team.members) >= team_size_limit:
             errors.append(
-                "{name} has already reached the team size limit of {limit}".format(
+                "{name} 팀이 모든 멤버가 꽉 찼습니다 (limit : {limit})".format(
                     name=team.name, limit=team_size_limit
                 )
             )
@@ -130,14 +130,14 @@ def join():
 
     user = get_current_user_attrs()
     if user.team_id:
-        errors.append("You are already in a team. You cannot join another.")
+        errors.append("이미 팀에 속해있습니다")
 
     if request.method == "GET":
         team_size_limit = get_config("team_size", default=0)
         if team_size_limit:
             plural = "" if team_size_limit == 1 else "s"
             infos.append(
-                "Teams are limited to {limit} member{plural}".format(
+                "팀 멤버는 {limit}명이 최대입니다. ({plural})".format(
                     limit=team_size_limit, plural=plural
                 )
             )
@@ -159,7 +159,7 @@ def join():
             team_size_limit = get_config("team_size", default=0)
             if team_size_limit and len(team.members) >= team_size_limit:
                 errors.append(
-                    "{name} has already reached the team size limit of {limit}".format(
+                    "{name} 팀이 모든 멤버가 꽉 찼습니다 (limit : {limit})".format(
                         name=team.name, limit=team_size_limit
                     )
                 )
@@ -194,7 +194,7 @@ def new():
     if bool(get_config("team_creation", default=True)) is False:
         abort(
             403,
-            description="Team creation is currently disabled. Please join an existing team.",
+            description="팀 생성이 비활성화 되어있습니다. 관리자에게 문의하세요.",
         )
 
     num_teams_limit = int(get_config("num_teams", default=0))
@@ -207,7 +207,7 @@ def new():
 
     user = get_current_user_attrs()
     if user.team_id:
-        errors.append("You are already in a team. You cannot join another.")
+        errors.append("이미 팀에 속해있습니다")
 
     if request.method == "GET":
         team_size_limit = get_config("team_size", default=0)
@@ -231,9 +231,9 @@ def new():
 
         existing_team = Teams.query.filter_by(name=teamname).first()
         if existing_team:
-            errors.append("That team name is already taken")
+            errors.append("팀 이름이 이미 존재합니다")
         if not teamname:
-            errors.append("That team name is invalid")
+            errors.append("팀 명이 올바르지 않습니다")
 
         # Process additional user fields
         fields = {}
@@ -244,7 +244,7 @@ def new():
         for field_id, field in fields.items():
             value = request.form.get(f"fields[{field_id}]", "").strip()
             if field.required is True and (value is None or value == ""):
-                errors.append("Please provide all required fields")
+                errors.append("모든 필드를 입력해주세요")
                 break
 
             # Handle special casing of existing profile fields
@@ -364,7 +364,7 @@ def public(team_id):
         return render_template("teams/public.html", team=team, errors=errors)
 
     if config.is_scoreboard_frozen():
-        infos.append("Scoreboard has been frozen")
+        infos.append("스코어 보드가 현재 비활성화 되어있습니다.")
 
     return render_template(
         "teams/public.html",

@@ -16,11 +16,11 @@ from CTFd.forms.users import (
 def RegistrationForm(*args, **kwargs):
     class _RegistrationForm(BaseForm):
         name = StringField(
-            _l("User Name"), validators=[InputRequired()], render_kw={"autofocus": True}
+            _l("닉네임"), validators=[InputRequired()], render_kw={"autofocus": True}
         )
-        email = EmailField(_l("Email"), validators=[InputRequired()])
-        password = PasswordField(_l("Password"), validators=[InputRequired()])
-        submit = SubmitField(_l("Submit"))
+        email = EmailField(_l("이메일"), validators=[InputRequired()])
+        password = PasswordField(_l("패스워드"), validators=[InputRequired()])
+        submit = SubmitField(_l("생성"))
 
         @property
         def extra(self):
@@ -36,27 +36,27 @@ def RegistrationForm(*args, **kwargs):
 
 class LoginForm(BaseForm):
     name = StringField(
-        _l("User Name or Email"),
+        _l("유저네임 혹은 이메일"),
         validators=[InputRequired()],
         render_kw={"autofocus": True},
     )
-    password = PasswordField(_l("Password"), validators=[InputRequired()])
-    submit = SubmitField(_l("Submit"))
+    password = PasswordField(_l("패스워드"), validators=[InputRequired()])
+    submit = SubmitField(_l("로그인"))
 
 
 class ConfirmForm(BaseForm):
-    submit = SubmitField(_l("Resend Confirmation Email"))
+    submit = SubmitField(_l("재전송되었습니다."))
 
 
 class ResetPasswordRequestForm(BaseForm):
     email = EmailField(
         _l("Email"), validators=[InputRequired()], render_kw={"autofocus": True}
     )
-    submit = SubmitField(_l("Submit"))
+    submit = SubmitField(_l("제출"))
 
 
 class ResetPasswordForm(BaseForm):
     password = PasswordField(
         _l("Password"), validators=[InputRequired()], render_kw={"autofocus": True}
     )
-    submit = SubmitField(_l("Submit"))
+    submit = SubmitField(_l("제출"))

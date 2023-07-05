@@ -6,7 +6,7 @@
 {% block content %}
 <div class="jumbotron">
 	<div class="container">
-		<h1>Login</h1>
+		<h1>로그인</h1>
 	</div>
 </div>
 <div class="container">
@@ -14,13 +14,13 @@
 		<div class="col-md-6 offset-md-3">
 			{% include "components/errors.html" %}
 
-			{% if integrations.mlc() %}
+			<!-- {% if integrations.mlc() %}
 			<a class="btn btn-secondary btn-lg btn-block" href="{{ url_for('auth.oauth_login') }}">
 				Login with Major League Cyber
 			</a>
 
 			<hr>
-			{% endif %}
+			{% endif %} -->
 
 			{% with form = Forms.auth.LoginForm() %}
 			<form method="post" accept-charset="utf-8" autocomplete="off">
@@ -35,7 +35,7 @@
 				<div class="row pt-3">
 					<div class="col-md-6">
 						<a class="float-left align-text-to-button" href="{{ url_for('auth.reset_password') }}">
-							Forgot your password?
+							패스워드를 잃어버렸나요?
 						</a>
 					</div>
 					<div class="col-md-6">

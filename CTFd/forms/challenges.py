@@ -7,24 +7,24 @@ from CTFd.forms.fields import SubmitField
 
 class ChallengeSearchForm(BaseForm):
     field = SelectField(
-        "Search Field",
+        "검색",
         choices=[
-            ("name", "Name"),
+            ("name", "이름"),
             ("id", "ID"),
-            ("category", "Category"),
-            ("type", "Type"),
+            ("category", "카테고리"),
+            ("type", "유형"),
         ],
         default="name",
         validators=[InputRequired()],
     )
-    q = StringField("Parameter", validators=[InputRequired()])
-    submit = SubmitField("Search")
+    q = StringField("파라미터", validators=[InputRequired()])
+    submit = SubmitField("찾기")
 
 
 class ChallengeFilesUploadForm(BaseForm):
     file = MultipleFileField(
-        "Upload Files",
-        description="Attach multiple files using Control+Click or Cmd+Click.",
+        "파일업로드",
+        description="컨트롤+클릭 또는 Cmd+클릭을 사용하여 여러 파일을 첨부합니다.",
         validators=[InputRequired()],
     )
-    submit = SubmitField("Upload")
+    submit = SubmitField("업로드")

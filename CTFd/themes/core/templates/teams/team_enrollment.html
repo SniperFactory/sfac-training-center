@@ -6,19 +6,19 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Team</h1>
+			<h1>팀</h1>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 offset-md-3 text-center">
-				<p>Welcome to {{ Configs.ctf_name }}!</p>
+				<p>만나서 반갑습니다 {{ Configs.ctf_name }}!</p>
 				<p>
-					In order to participate you must either join or create a team.
+					참여하기 위해서는 팀에 가입해야 합니다.
 				</p>
 			</div>
 		</div>
-		{% if integrations.mlc() %}
+		<!-- {% if integrations.mlc() %}
 		<div class="row">
 			<div class="col-md-6 offset-md-3 text-center">
 				<a class="btn btn-primary w-100" href="{{ url_for('auth.oauth_login') }}">Play with Official Team</a>
@@ -32,13 +32,13 @@
 				<a class="btn btn-light w-100" href="{{ url_for('teams.new') }}">Create Unofficial Team</a>
 			</div>
 		</div>
-		{% else %}
+		{% else %} -->
 		<div class="row pt-3">
 			<div class="col-md-3 offset-md-3 text-center">
-				<a class="btn btn-primary w-100" href="{{ url_for('teams.join') }}">Join Team</a>
+				<a class="btn btn-primary w-100" href="{{ url_for('teams.join') }}">기존 팀에 가입하기</a>
 			</div>
 			<div class="col-md-3 text-center">
-				<a class="btn btn-primary w-100" href="{{ url_for('teams.new') }}">Create Team</a>
+				<a class="btn btn-primary w-100" href="{{ url_for('teams.new') }}">팀 생성하기</a>
 			</div>
 		</div>
 		{% endif %}

@@ -13,15 +13,15 @@ from CTFd.utils.user import get_current_user
 
 def SettingsForm(*args, **kwargs):
     class _SettingsForm(BaseForm):
-        name = StringField(_l("User Name"))
-        email = StringField(_l("Email"))
+        name = StringField(_l("닉네임"))
+        email = StringField(_l("이메일"))
         language = SelectField(_l("Language"), choices=SELECT_LANGUAGE_LIST)
-        password = PasswordField(_l("Password"))
-        confirm = PasswordField(_l("Current Password"))
-        affiliation = StringField(_l("Affiliation"))
-        website = URLField(_l("Website"))
-        country = SelectField(_l("Country"), choices=SELECT_COUNTRIES_LIST)
-        submit = SubmitField(_l("Submit"))
+        password = PasswordField(_l("비밀번호"))
+        confirm = PasswordField(_l("현재 비밀번호"))
+        affiliation = StringField(_l("소속"))
+        website = URLField(_l("웹사이트"))
+        country = SelectField(_l("국가"), choices=SELECT_COUNTRIES_LIST)
+        submit = SubmitField(_l("제출"))
 
         @property
         def extra(self):

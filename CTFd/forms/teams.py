@@ -97,32 +97,32 @@ def TeamRegisterForm(*args, **kwargs):
 def TeamSettingsForm(*args, **kwargs):
     class _TeamSettingsForm(BaseForm):
         name = StringField(
-            _l("Team Name"),
-            description=_l("Your team's public name shown to other competitors"),
+            _l("팀 명"),
+            description=_l("보여질 팀 명"),
         )
         password = PasswordField(
-            _l("New Team Password"), description=_l("Set a new team join password")
+            _l("팀 새 비밀번호"), description=_l("새 팀 비밀번호를 입력하세요")
         )
         confirm = PasswordField(
-            _l("Confirm Current Team Password"),
+            _l("현재 팀 비밀번호"),
             description=_l(
-                "Provide your current team password (or your password) to update your team's password"
+                "팀 비밀번호를 변경하려면 현재 팀 비밀번호를 입력하세요"
             ),
         )
         affiliation = StringField(
-            _l("Affiliation"),
+            _l("소속"),
             description=_l(
-                "Your team's affiliation publicly shown to other competitors"
+                "다른 참가자에게 공개되는 팀 소속"
             ),
         )
         website = URLField(
-            _l("Website"),
-            description=_l("Your team's website publicly shown to other competitors"),
+            _l("웹사이트"),
+            description=_l("다른 참가자에게 공개되는 팀 웹사이트"),
         )
         country = SelectField(
-            _l("Country"),
+            _l("국가"),
             choices=SELECT_COUNTRIES_LIST,
-            description=_l("Your team's country publicly shown to other competitors"),
+            description=_l("다른 참가자에게 공개되는 팀 국가"),
         )
         submit = SubmitField(_l("Submit"))
 
@@ -162,40 +162,40 @@ def TeamSettingsForm(*args, **kwargs):
 class TeamCaptainForm(BaseForm):
     # Choices are populated dynamically at form creation time
     captain_id = SelectField(
-        _l("Team Captain"), choices=[], validators=[InputRequired()]
+        _l("팀장"), choices=[], validators=[InputRequired()]
     )
-    submit = SubmitField("Submit")
+    submit = SubmitField("제출")
 
 
 class TeamSearchForm(BaseForm):
     field = SelectField(
-        "Search Field",
+        "검색",
         choices=[
-            ("name", "Name"),
+            ("name", "이름"),
             ("id", "ID"),
-            ("affiliation", "Affiliation"),
-            ("website", "Website"),
+            ("affiliation", "소속"),
+            ("website", "웹사이트"),
         ],
         default="name",
         validators=[InputRequired()],
     )
-    q = StringField("Parameter", validators=[InputRequired()])
-    submit = SubmitField("Search")
+    q = StringField("파라미터", validators=[InputRequired()])
+    submit = SubmitField("검색")
 
 
 class PublicTeamSearchForm(BaseForm):
     field = SelectField(
-        _l("Search Field"),
+        _l("검색"),
         choices=[
-            ("name", _l("Name")),
-            ("affiliation", _l("Affiliation")),
-            ("website", _l("Website")),
+            ("name", _l("이름")),
+            ("affiliation", _l("소속")),
+            ("website", _l("웹사이트")),
         ],
         default="name",
         validators=[InputRequired()],
     )
-    q = StringField(_l("Parameter"), validators=[InputRequired()])
-    submit = SubmitField(_l("Search"))
+    q = StringField(_l("파라미터"), validators=[InputRequired()])
+    submit = SubmitField(_l("검색"))
 
 
 class TeamBaseForm(BaseForm):

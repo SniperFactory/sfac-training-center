@@ -114,39 +114,39 @@ def attach_registration_code_field(form_cls):
 
 class UserSearchForm(BaseForm):
     field = SelectField(
-        "Search Field",
+        "검색",
         choices=[
-            ("name", "Name"),
+            ("name", "이름"),
             ("id", "ID"),
-            ("email", "Email"),
-            ("affiliation", "Affiliation"),
-            ("website", "Website"),
-            ("ip", "IP Address"),
+            ("email", "이메일"),
+            ("affiliation", "소속"),
+            ("website", "웹"),
+            ("ip", "IP"),
         ],
         default="name",
         validators=[InputRequired()],
     )
-    q = StringField("Parameter", validators=[InputRequired()])
-    submit = SubmitField("Search")
+    q = StringField("파라미터", validators=[InputRequired()])
+    submit = SubmitField("검색")
 
 
 class PublicUserSearchForm(BaseForm):
     field = SelectField(
-        _l("Search Field"),
+        _l("검색"),
         choices=[
-            ("name", _l("Name")),
-            ("affiliation", _l("Affiliation")),
-            ("website", _l("Website")),
+            ("name", _l("닉네임(이름)")),
+            ("affiliation", _l("소속")),
+            ("website", _l("웹사이트")),
         ],
         default="name",
         validators=[InputRequired()],
     )
     q = StringField(
         _l("Parameter"),
-        description=_l("Search for matching users"),
+        description=_l("유저 검색"),
         validators=[InputRequired()],
     )
-    submit = SubmitField(_l("Search"))
+    submit = SubmitField(_l("검색"))
 
 
 class UserBaseForm(BaseForm):
